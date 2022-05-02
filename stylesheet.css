@@ -1,0 +1,231 @@
+body{
+    margin:0;
+    padding:0;
+    background: #293f50;
+    color: #abb7ca;
+    font: 300 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.styles{
+    color: #888;
+}
+.container-grid{
+    display:grid;
+}
+.header-section{
+    display:grid;
+    background: #315570;
+}
+header{
+    display: grid;
+    /* background: lightblue;*/
+    grid-template-columns: auto auto;
+    justify-items: center;
+    width: 100%;
+
+}
+.heading{
+    /* background: white; */
+}
+.heading h1{
+    color: #cfbfbf;
+
+}
+nav{
+    align-self: center;
+
+}
+nav ul{
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(5,2fr);
+    list-style-type: none;
+}
+nav ul a{
+    text-decoration: none;
+    background: #d8e0b6;
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 3px;
+    font-style: initial;
+}
+nav h2{
+    text-align: center;
+    color:beige
+
+}
+section{
+    /* background: darkorange; */
+    text-align: center;
+    padding-bottom: 20px;
+
+
+}
+section h2{
+    color: #e4d5d5;
+
+}
+.btn-1{
+    background: #6376df;
+    padding: 10px;
+    text-decoration: none;
+    border: 1px solid white;
+    border-radius: 5px;
+    font-weight: 300;
+    box-shadow: 1px 1px white;
+    color: white;
+}
+.main-home{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2rem;
+    width: 70%;
+    justify-self: center;
+}
+.main-home h1,h4,p{
+    color: ghostwhite;
+
+}
+.box img{
+        width: 100%;
+        border-radius: 20px;
+
+}
+footer{
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 100%;
+    justify-self: center;
+    background: #315570;
+}
+
+ /* Speaker main page css */
+
+ .speaker-heading{
+    background: rgb(112 45 24);
+
+  }
+.main-speaker{
+    display: grid;
+    justify-self: center;
+    grid-gap: 20px;
+    grid-template-rows: repeat(3,1fr);
+    width: 83%;
+    padding: 1.2rem;
+ }
+ .speaker{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    background: rgb(161 157 157);
+    padding: 3rem;
+    grid-gap: 15px;
+ }
+ .info {
+    /* background: red; */
+}
+.speaker-name , .talk-name{
+    color: rgb(84 41 26);
+    margin-top:0;
+    text-align: center;
+
+}
+img{
+    border-radius: 50px;
+    width: 50%;
+}
+.profile a {
+    color: #382304;
+    text-decoration: none;
+    padding: 0.2rem;
+}
+
+/* Shedule main page css */
+
+.shedule-heading{
+    background: rgb(161 161 36);
+
+}
+.main-shedule{
+    display: grid;
+    grid-template-rows: 2fr 2fr;
+    /* background: lightpink; */
+}
+.workshop{
+    background: #4e5a59;
+}
+/* same rows for conference since the class is same */
+.rows{
+    display:grid;
+    grid-template-columns: 1fr 2fr 2fr;
+    padding: 2rem;
+}
+.conference{
+    background: rgb(58 61 58);
+}
+
+/* main content page for venue css */
+.venue-heading{
+    background: #5d6768;
+}
+.main-venue{
+    justify-self: center;
+    width: 50%;
+    padding: 2rem;
+}
+.chicago-theatre{
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+.address{
+    padding: 1rem;
+}
+.address h1{
+    color: blueviolet;
+}
+.address p {
+    color: beige;
+}
+.address a {
+    color: rgb(104, 170, 167);
+    font-size: 2rem;
+}
+/* main content page of REGISTRE css */
+
+.registre-heading{
+    background: #1a56df;
+
+}
+.main-registre{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 2rem;
+    grid-gap: 30px;
+}
+.content-left{
+    background-color: #babaa0;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px white;
+}
+.description{
+    color: purple;
+
+}
+.content-right{
+    background-color: #9d8d88;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px white;
+    font-weight: 500;
+    font-size: large;
+}
+.btn{
+    text-decoration: none;
+    align-items: center;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 10px;
+    background: darkcyan;
+    box-shadow: 1px 1px blue;
+}
