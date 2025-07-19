@@ -2,74 +2,470 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conference website</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <title>Styles Conference - Chicago 2024</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff6b35;
+            --secondary-color: #1a1a2e;
+            --accent-color: #0f3460;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background: #f4f7f6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(26, 26, 46, 0.98);
+            box-shadow: var(--shadow-light);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo .highlight {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .nav-link:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover:before,
+        .nav-link.active:before {
+            left: 0;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--text-light);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger {
+            width: 25px;
+            height: 3px;
+            background: var(--text-light);
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 40%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .hero-content { text-align: center; color: var(--text-light); z-index: 2; }
+        .hero-title { font-size: 4rem; font-weight: 800; margin-bottom: 1rem; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
+        .hero-subtitle { font-size: 1.5rem; margin-bottom: 2rem; opacity: 0; animation: fadeInUp 1s ease 0.6s forwards; }
+        .hero-date { font-size: 1.2rem; margin-bottom: 3rem; opacity: 0; animation: fadeInUp 1s ease 0.9s forwards; }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gradient-secondary);
+            color: var(--text-light);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.2s forwards;
+            box-shadow: var(--shadow);
+        }
+
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); }
+
+        /* Main Content Sections */
+        .section { padding: 6rem 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .section-title { text-align: center; font-size: 3rem; font-weight: 700; margin-bottom: 1rem; color: var(--secondary-color); }
+        .section-subtitle { text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 4rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .feature-card { background: #fff; border-radius: 20px; padding: 3rem 2rem; text-align: center; box-shadow: var(--shadow-light); transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: var(--shadow); }
+        .feature-icon { font-size: 3rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.5rem; }
+        .feature-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--secondary-color); }
+        
+        /* General SPA section handling */
+        .nav-sections { display: none; }
+        .nav-sections.active { display: block; animation: fadeIn 0.5s ease; }
+        
+        /* Speakers Section */
+        .speakers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .speaker-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow-light); transition: all 0.3s ease; text-align: left; }
+        .speaker-card:hover { transform: translateY(-10px); box-shadow: var(--shadow); }
+        .speaker-image img { width: 100%; height: 300px; object-fit: cover; }
+        .speaker-info { padding: 1.5rem; }
+        .speaker-name { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .speaker-talk { color: var(--primary-color); font-weight: 600; margin-bottom: 1rem; }
+        
+        /* Schedule Section */
+        .schedule-day { background: #fff; border-radius: 15px; padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-light); }
+        .day-title { font-size: 1.8rem; font-weight: 700; color: var(--secondary-color); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 2px solid var(--primary-color); }
+        .schedule-item { display: flex; align-items: flex-start; padding: 1.5rem 0; border-bottom: 1px solid #eee; }
+        .schedule-item:last-child { border-bottom: none; }
+        .schedule-time { width: 120px; font-weight: 600; color: var(--primary-color); flex-shrink: 0; }
+        .schedule-content h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        
+        /* Venue Section */
+        .venue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem; }
+        .venue-card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow-light); }
+        .venue-map iframe { width: 100%; height: 300px; border: none; }
+        .venue-info { padding: 2rem; }
+        .venue-info h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .venue-info p { margin-bottom: 0.5rem; }
+        .venue-info a { color: var(--primary-color); text-decoration: none; }
+        
+        /* Register Section */
+        .form-container { background: #fff; border-radius: 20px; padding: 3rem; box-shadow: var(--shadow); max-width: 600px; margin: 2rem auto; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 1rem; border: 2px solid #eee; border-radius: 10px; font-size: 1rem; transition: all 0.3s ease; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary-color); }
+        .submit-btn { background: var(--gradient-primary); color: var(--text-light); padding: 1rem 2rem; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; width: 100%; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+        
+        /* Footer */
+        footer { background: var(--secondary-color); color: var(--text-light); padding: 3rem 0; text-align: center; }
+        .footer-nav { margin-bottom: 1rem; }
+        .footer-nav a { color: var(--text-light); text-decoration: none; margin: 0 1rem; transition: color 0.3s ease; }
+        .footer-nav a:hover { color: var(--primary-color); }
+
+        /* Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .mobile-menu { display: flex; flex-direction: column; }
+            .nav-menu { position: fixed; left: -100%; top: 68px; flex-direction: column; background: var(--secondary-color); width: 100%; text-align: center; transition: 0.3s; box-shadow: var(--shadow); padding: 2rem 0; }
+            .nav-menu.active { left: 0; }
+            .hero-title { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .features-grid, .speakers-grid, .venue-grid { grid-template-columns: 1fr; }
+            .nav-container, .container { padding: 0 1rem; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container-grid">
 
-        <div class="header-section">
-            <header>
-            <div class="heading">
-                <h1 class="styles"> STYLES <br><br>
-                    CONFERENCE
-                </h1>
-            </div>
-            <nav>
-                <h2>August 24-26th-Chicago,IL</h2>
-                <ul>
-                    <a href="./mainbrowser.html">HOME</a>
-                    <a href="./speaker.html">SPEAKERS</a>
-                    <a href="./shedule.html">SCHEDULE</a>
-                    <a href="./venue.html">VENUE</a>
-                    <a href="./Register.html">REGISTER</a>
-                </ul>
-            </nav>
-          </header>
-          <section>
-              <h2>Dedicated to the Craft of Building Websites</h2>
-              <p>Every year the brightest web designers and front-end developers descend on Chicago to discuss the latest tech logies. Join us this August!</p>
-              <a href="" class="btn-1">REGISTER NOW</a>
-          </section>
-      </div>
-
-         <div class="main-home">
-             <div class="box">
-                 <h1>SPEAKER</h1>
-                 <img src="./speakers.jpg">
-                 <h4>World-Class Speakers</h4>
-                 <p>Joining us from all around the world are over twenty fantastic speakers, here to share their stories.</p>
-             </div>
-
-              <div class="box">
-                  <h1>SCHEDULE</h1>
-                  <img src="./schedule.jpg">
-                  <h4>Three Inspiring Days</h4>
-                  <p>Enjoy three inspiring and action-packed days of tals, gatherings, and all-around good times.</p>  
-             </div>
-              <div class="box">
-                  <h1>VENUE</h1>
-                  <img src="./venue.jpg">
-                  <h4>The Chicago Theatre</h4>
-                  <p>Within the heart of downtown Chicago, The Chicago Theatre will provide a beautiful conference venue.</p>
-              </div>
-         </div>
-    <footer>
-        <div class="footer-left">
-            <h1> &copy	Styles Conference</h1>
-        </div>
-        <nav>
-            <ul>
-                <a href="./mainbrowser.html">HOME</a>
-                <a href="./speaker.html">SPEAKERS</a>
-                <a href="./shedule.html">SCHEDULE</a>
-                <a href="./venue.html">VENUE</a>
-                <a href="./Register.html">REGISTER</a>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo"><span class="highlight">STYLES</span> CONF</div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="speakers">Speakers</a></li>
+                <li><a href="#" class="nav-link" data-page="schedule">Schedule</a></li>
+                <li><a href="#" class="nav-link" data-page="venue">Venue</a></li>
+                <li><a href="#" class="nav-link" data-page="register">Register</a></li>
             </ul>
-        </nav>
+            <div class="mobile-menu" id="mobileMenu">
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+                <div class="hamburger"></div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="nav-sections active" id="home">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">STYLES CONFERENCE</h1>
+                    <p class="hero-subtitle">Dedicated to the Craft of Building Websites</p>
+                    <p class="hero-date">August 24-26th • Chicago, IL</p>
+                    <a href="#" class="cta-button" data-page="register">REGISTER NOW</a>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="container">
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-microphone"></i></div>
+                            <h3 class="feature-title">World-Class Speakers</h3>
+                            <p>Joining us from all around the world are over twenty fantastic speakers, here to share their stories.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <h3 class="feature-title">Three Inspiring Days</h3>
+                            <p>Enjoy three inspiring and action-packed days of talks, gatherings, and all-around good times.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <h3 class="feature-title">The Chicago Theatre</h3>
+                            <p>Within the heart of downtown Chicago, The Chicago Theatre will provide a beautiful conference venue.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="nav-sections" id="speakers">
+            <div class="section" style="padding-top: 8rem;">
+                <div class="container">
+                    <h2 class="section-title">Speakers</h2>
+                    <p class="section-subtitle">We’re happy to welcome over twenty speakers to present on the industry’s latest technologies. Prepare for an inspiration extravaganza.</p>
+                    <div class="speakers-grid">
+                        <div class="speaker-card">
+                            <div class="speaker-image"><img src="https://via.placeholder.com/400x300/667eea/ffffff?text=Speaker" alt="Speaker Photo"></div>
+                            <div class="speaker-info">
+                                <h3 class="speaker-name">Aaron Irizarry</h3>
+                                <p class="speaker-talk">Designing a Culture of Design</p>
+                                <p>Workplace culture doesn’t start with beanbags... For design to be most effective and for designers to feel valued, we need to work in a culture that embraces design.</p>
+                            </div>
+                        </div>
+                        <div class="speaker-card">
+                            <div class="speaker-image"><img src="https://via.placeholder.com/400x300/764ba2/ffffff?text=Speaker" alt="Speaker Photo"></div>
+                            <div class="speaker-info">
+                                <h3 class="speaker-name">Jen Myers</h3>
+                                <p class="speaker-talk">Teaching Our CSS to Play Nice</p>
+                                <p>CSS is a language of suggestions, not demands. In this talk, we’ll look at how to approach CSS with a mindset of collaboration and flexibility.</p>
+                            </div>
+                        </div>
+                        <div class="speaker-card">
+                            <div class="speaker-image"><img src="https://via.placeholder.com/400x300/f093fb/ffffff?text=Speaker" alt="Speaker Photo"></div>
+                            <div class="speaker-info">
+                                <h3 class="speaker-name">Chris Mills</h3>
+                                <p class="speaker-talk">Building Modular Design Systems</p>
+                                <p>Learn how to create a flexible and maintainable design system that can scale with your products and teams, ensuring consistency and efficiency.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="nav-sections" id="schedule">
+            <div class="section" style="padding-top: 8rem;">
+                <div class="container">
+                    <h2 class="section-title">Schedule</h2>
+                    <p class="section-subtitle">Three days packed with workshops, presentations, and networking opportunities.</p>
+                    <div class="schedule-day">
+                        <h3 class="day-title">Day 1 - Workshops</h3>
+                        <div class="schedule-item"><div class="schedule-time">8:30 AM</div><div class="schedule-content"><h4>Registration & Breakfast</h4></div></div>
+                        <div class="schedule-item"><div class="schedule-time">9:30 AM</div><div class="schedule-content"><h4>Modern CSS Workshop</h4><p>With Sarah Johnson</p></div></div>
+                    </div>
+                    <div class="schedule-day">
+                        <h3 class="day-title">Day 2 - Main Conference</h3>
+                        <div class="schedule-item"><div class="schedule-time">9:00 AM</div><div class="schedule-content"><h4>Opening Keynote</h4><p>With Mike Chen</p></div></div>
+                        <div class="schedule-item"><div class="schedule-time">10:30 AM</div><div class="schedule-content"><h4>Design Systems at Scale</h4><p>With Emma Wilson</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="nav-sections" id="venue">
+            <div class="section" style="padding-top: 8rem;">
+                <div class="container">
+                    <h2 class="section-title">Venue</h2>
+                    <p class="section-subtitle">The conference is held at The Chicago Theatre, a beautiful historical landmark. The conference hotel, Four Seasons, is a short walk away.</p>
+                    <div class="venue-grid">
+                        <div class="venue-card">
+                            <div class="venue-map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2970.347118107052!2d-87.62969368455866!3d41.88539137922166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2caff598f035%3A0xed6d5c288e9b5ad2!2s175%20N%20State%20St%2C%20Chicago%2C%20IL%2060601%2C%20USA!5e0!3m2!1sen!2sin!4v1649939913479!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe></div>
+                            <div class="venue-info"><h3>Chicago Theatre</h3><p>175 N State St, Chicago, IL 60601</p><a href="https://www.google.com/maps?q=175+N+State+St,+Chicago" target="_blank">Get Directions</a></div>
+                        </div>
+                        <div class="venue-card">
+                            <div class="venue-map"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.822242139688!2d-87.6267556845583!3d41.8963473792209!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e2cb031868301%3A0x944a5c661c940608!2sFour%20Seasons%20Hotel%20Chicago!5e0!3m2!1sen!2sin!4v1672589999999!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe></div>
+                            <div class="venue-info"><h3>Four Seasons</h3><p>120 E Delaware Pl, Chicago, IL 60611</p><a href="https://www.google.com/maps?q=Four+Seasons+Hotel+Chicago" target="_blank">Get Directions</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="nav-sections" id="register">
+            <div class="section" style="padding-top: 8rem;">
+                <div class="container">
+                    <h2 class="section-title">Register</h2>
+                    <p class="section-subtitle">Every year we aim to have an unbelievable time, and this year we'd love it for you to join us. Conference passes only cost $99!</p>
+                    <div class="form-container">
+                        <form>
+                            <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="Your Name" required></div>
+                            <div class="form-group"><label for="email">Email</label><input type="email" id="email" placeholder="Your Email" required></div>
+                            <div class="form-group"><label for="pass">Number of Passes</label><select id="pass"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
+                            <div class="form-group"><label for="comments">Comments</label><textarea id="comments" rows="4"></textarea></div>
+                            <button type="submit" class="submit-btn">Purchase</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-nav">
+                <a href="#" data-page="home">Home</a>
+                <a href="#" data-page="speakers">Speakers</a>
+                <a href="#" data-page="schedule">Schedule</a>
+                <a href="#" data-page="venue">Venue</a>
+                <a href="#" data-page="register">Register</a>
+            </div>
+            <p>© Styles Conference</p>
+        </div>
     </footer>
-</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const navMenu = document.getElementById('navMenu');
+            const navLinks = document.querySelectorAll('.nav-link, .cta-button, .footer-nav a');
+            const sections = document.querySelectorAll('.nav-sections');
+            const navbar = document.getElementById('navbar');
+
+            // Toggle mobile menu
+            mobileMenu.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+
+            // Handle navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.getAttribute('data-page');
+                    
+                    // Update active link
+                    document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
+                    document.querySelector(`.nav-link[data-page="${page}"]`).classList.add('active');
+                    
+                    // Show target section
+                    sections.forEach(section => section.classList.remove('active'));
+                    document.getElementById(page).classList.add('active');
+                    
+                    // Close mobile menu
+                    navMenu.classList.remove('active');
+                    window.scrollTo(0, 0);
+                });
+            });
+
+            // Sticky navbar on scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        });
+
+        // Simple animation for elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.animation = `fadeInUp 1s ease forwards`;
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.feature-card, .speaker-card, .schedule-day, .venue-card, .form-container').forEach(el => {
+            el.style.opacity = 0; // Hide initially
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
