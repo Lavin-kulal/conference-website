@@ -879,6 +879,7 @@
             color: var(--text-light); 
             z-index: 2; 
             position: relative;
+            padding: 0 1rem;
         }
 
         .hero-title { 
@@ -987,7 +988,7 @@
 
         .features-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
             gap: 3rem; 
         }
 
@@ -1029,7 +1030,7 @@
 
         .speakers-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
             gap: 3rem; 
         }
 
@@ -1120,7 +1121,7 @@
         
         .venue-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
             gap: 3rem; 
         }
 
@@ -1229,14 +1230,24 @@
 
         .footer-nav { 
             margin-bottom: 2rem; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
         .footer-nav a { 
             color: var(--text-light); 
             text-decoration: none; 
-            margin: 0 1.5rem; 
+            margin: 0 1rem; 
             transition: all 0.3s ease; 
             cursor: pointer;
+        }
+
+        .footer-nav a:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
         }
 
         @keyframes fadeInUp { 
@@ -1249,12 +1260,34 @@
             to { opacity: 1; } 
         }
 
+        /* --- Mobile Responsive Styles --- */
         @media (max-width: 768px) {
-            .mobile-menu { display: flex; flex-direction: column; }
-            .nav-menu { position: fixed; left: -100%; top: 72px; flex-direction: column; background: rgba(26, 26, 46, 0.98); backdrop-filter: blur(20px); width: 100%; text-align: center; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: var(--shadow); padding: 3rem 0; }
-            .nav-menu.active { left: 0; }
+            .mobile-menu { 
+                display: flex; 
+                flex-direction: column; 
+            }
+            .nav-menu { 
+                position: fixed; 
+                left: -100%; 
+                top: 72px; /* Height of the navbar */
+                flex-direction: column; 
+                background: rgba(26, 26, 46, 0.98); 
+                backdrop-filter: blur(20px); 
+                width: 100%; 
+                text-align: center; 
+                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+                box-shadow: var(--shadow); 
+                padding: 3rem 0; 
+                gap: 2.5rem;
+            }
+            .nav-menu.active { 
+                left: 0; 
+            }
             .hero-title { font-size: 2.8rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .section { padding: 6rem 0; }
             .section-title { font-size: 2.5rem; }
+            .section-subtitle { font-size: 1.1rem; }
             .features-grid, .speakers-grid, .venue-grid { grid-template-columns: 1fr; }
             .nav-container, .container { padding: 0 1.5rem; }
             .form-container { padding: 2.5rem 1.5rem; margin: 1rem; }
@@ -1356,7 +1389,7 @@
                 <div class="container">
                     <h2 class="section-title animate-on-scroll">Register</h2>
                     <p class="section-subtitle animate-on-scroll">Passes are only $99! Join us for an incredible experience.</p>
-                    <div class="form-container animate-on-scroll"><form><div class="form-group"><label for="name">Name</label><input type="text" id="name" placeholder="Your Name" required></div><div class="form-group"><label for="email">Email</label><input type="email" id="email" placeholder="Your Email" required></div><div class="form-group"><label for="pass">Number of Passes</label><select id="pass"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div><div class="form-group"><label for="comments">Comments</label><textarea id="comments" rows="4"></textarea></div><button type="submit" class="submit-btn">Purchase</button></form></div>
+                    <div class="form-container animate-on-scroll"><form><div class="form-group"><label for="name">Name</label><input type="text" id="name" placeholder="Your Name" required></div><div class="form-group"><label for="email">Email</label><input type="email" id="email" placeholder="Your Email" required></div><div class="form-group"><label for="pass">Number of Passes</label><select id="pass"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div><div class="form-group"><label for="comments">Comments</label><textarea id="comments" rows="4" placeholder="Any special requests?"></textarea></div><button type="submit" class="submit-btn">Purchase</button></form></div>
                 </div>
             </div>
         </section>
@@ -1365,7 +1398,11 @@
     <footer>
         <div class="container">
             <div class="footer-nav">
-                <a data-page="home">Home</a><a data-page="speakers">Speakers</a><a data-page="schedule">Schedule</a><a data-page="venue">Venue</a><a data-page="register">Register</a>
+                <a data-page="home">Home</a>
+                <a data-page="speakers">Speakers</a>
+                <a data-page="schedule">Schedule</a>
+                <a data-page="venue">Venue</a>
+                <a data-page="register">Register</a>
             </div>
             <p>© Styles Conference. All rights reserved.</p>
         </div>
@@ -1376,51 +1413,60 @@
             const mobileMenu = document.getElementById('mobileMenu');
             const navMenu = document.getElementById('navMenu');
             const navLinks = document.querySelectorAll('.nav-link, .cta-button, .footer-nav a');
-            const sections = document.querySelectorAll('.nav-sections');
             const navbar = document.getElementById('navbar');
 
+            // --- Mobile Menu Toggle ---
             mobileMenu.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
                 mobileMenu.classList.toggle('active');
             });
 
+            // --- Navigation / Tab Switching ---
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     const page = link.getAttribute('data-page');
                     
+                    // Update the active link in the main navbar
                     document.querySelectorAll('.nav-link').forEach(nav => nav.classList.remove('active'));
                     const activeNavLink = document.querySelector(`.nav-link[data-page="${page}"]`);
                     if (activeNavLink) activeNavLink.classList.add('active');
                     
+                    // Switch the visible section
                     const currentSection = document.querySelector('.nav-sections.active');
                     const targetSection = document.getElementById(page);
 
                     if (currentSection !== targetSection) {
                         if (currentSection) currentSection.classList.remove('active');
-                        if (targetSection) targetSection.classList.add('active');
-                        // **FIX:** Scroll to the top of the page when navigating
-                        window.scrollTo(0, 0);
+                        if (targetSection) {
+                            targetSection.classList.add('active');
+                            // Scroll to the top for a clean page transition
+                            window.scrollTo(0, 0);
+                        }
                     }
                     
+                    // Close the mobile menu after a selection is made
                     navMenu.classList.remove('active');
                     mobileMenu.classList.remove('active');
                 });
             });
 
+            // --- Navbar Scroll Effect ---
             window.addEventListener('scroll', () => {
                 navbar.classList.toggle('scrolled', window.scrollY > 50);
             });
 
-            // Intersection Observer for scroll animations
+            // --- Animate Elements on Scroll ---
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if(entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
+                        observer.unobserve(entry.target); // Stop observing after animation
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { 
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
 
             document.querySelectorAll('.animate-on-scroll').forEach(el => {
                 observer.observe(el);
